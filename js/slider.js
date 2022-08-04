@@ -44,7 +44,6 @@ let i=0;
 slides.forEach(stampaSlides)
 
 
-
 // stampa tutto slides e da classe attiva alla prima Slide 
 function stampaSlides(slides,i) {
 
@@ -69,3 +68,45 @@ function stampaSlides(slides,i) {
 	i++
 }
 
+const slidesCarousel= document.querySelectorAll('.slide')
+console.log(slidesCarousel)
+
+
+const nextArrowEl = document.querySelector('.arrow-next');
+currentIndex=0
+nextArrowEl.addEventListener('click', function () {
+
+    let slideAttiva = slidesCarousel[currentIndex];
+    let slideSuccessiva = slidesCarousel[currentIndex + 1]
+    // let circleAttivo = circleArray[currentIndex]
+    // let circleSuccessivo = circleArray[currentIndex + 1];
+
+	console.log(slideAttiva,slideSuccessiva)
+
+    // qui si torna alla prima img quando siamo arrivati alla fine 
+    if (currentIndex === 4) {
+        slideSuccessiva = slidesCarousel[0];
+        slideAttiva.classList.remove('active');
+        slideSuccessiva.classList.add('active');
+        // circleSuccessivo = circleArray[0]
+        // circleAttivo.classList.remove('circle__active');
+        // circleSuccessivo.classList.add('circle__active');
+        // console.log(currentIndex)
+        currentIndex = -1;
+        // console.log(currentIndex)
+
+    } else {
+        // togliere classe active dalla slide attiva 
+        slideAttiva.classList.remove('active');
+        slideSuccessiva.classList.add('active');
+        // circleAttivo.classList.remove('circle__active');
+        // circleSuccessivo.classList.add('circle__active');
+    }
+    currentIndex++
+
+    // console.log(slideAttiva, 'attiva')
+    // console.log(slideSuccessiva, 'successiva')
+    // console.log(currentIndex)
+
+
+})

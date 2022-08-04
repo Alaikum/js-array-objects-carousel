@@ -40,7 +40,6 @@ console.log(ulElement, slides)
 
 
 
-let i=0;
 slides.forEach(stampaSlides)
 
 
@@ -65,7 +64,7 @@ function stampaSlides(slides,i) {
   	<p class="slide__description">${slides.description}</p>
 	</div>
 	</li>`
-	i++
+	
 }
 
 const slidesCarousel= document.querySelectorAll('.slide')
@@ -74,39 +73,159 @@ console.log(slidesCarousel)
 
 const nextArrowEl = document.querySelector('.arrow-next');
 currentIndex=0
+// next arrow 
 nextArrowEl.addEventListener('click', function () {
 
     let slideAttiva = slidesCarousel[currentIndex];
     let slideSuccessiva = slidesCarousel[currentIndex + 1]
-    // let circleAttivo = circleArray[currentIndex]
-    // let circleSuccessivo = circleArray[currentIndex + 1];
+    let circleAttivo = circleArray[currentIndex]
+    let circleSuccessivo = circleArray[currentIndex + 1];
 
 	console.log(slideAttiva,slideSuccessiva)
 
     // qui si torna alla prima img quando siamo arrivati alla fine 
-    if (currentIndex === 4) {
+    if (currentIndex === slidesCarousel.length -1) {
         slideSuccessiva = slidesCarousel[0];
         slideAttiva.classList.remove('active');
         slideSuccessiva.classList.add('active');
-        // circleSuccessivo = circleArray[0]
-        // circleAttivo.classList.remove('circle__active');
-        // circleSuccessivo.classList.add('circle__active');
-        // console.log(currentIndex)
+        circleSuccessivo = circleArray[0]
+        circleAttivo.classList.remove('circle__active');
+        circleSuccessivo.classList.add('circle__active');
+      
         currentIndex = -1;
-        // console.log(currentIndex)
+ 
 
     } else {
         // togliere classe active dalla slide attiva 
         slideAttiva.classList.remove('active');
         slideSuccessiva.classList.add('active');
-        // circleAttivo.classList.remove('circle__active');
-        // circleSuccessivo.classList.add('circle__active');
+        circleAttivo.classList.remove('circle__active');
+        circleSuccessivo.classList.add('circle__active');
     }
     currentIndex++
 
-    // console.log(slideAttiva, 'attiva')
-    // console.log(slideSuccessiva, 'successiva')
-    // console.log(currentIndex)
+})
+
+
+
+
+
+const prevArrowEl = document.querySelector('.arrow-prev');
+
+// prev arrow 
+prevArrowEl.addEventListener('click', function () {
+
+    let slideAttiva = slidesCarousel[currentIndex];
+    let slideSuccessiva = slidesCarousel[currentIndex + -1]
+    let circleAttivo = circleArray[currentIndex]
+    let circleSuccessivo = circleArray[currentIndex + -1];
+
+
+
+    // qui si torna alla prima img quando siamo arrivati alla fine 
+    if (currentIndex === 0) {
+        slideSuccessiva = slidesCarousel[4];
+        slideAttiva.classList.remove('active');
+        slideSuccessiva.classList.add('active');
+        circleSuccessivo = circleArray[4]
+        circleAttivo.classList.remove('circle__active');
+        circleSuccessivo.classList.add('circle__active');
+        currentIndex = 5;
+
+
+    } else {
+        // togliere classe active dalla slide attiva 
+        slideAttiva.classList.remove('active');
+        slideSuccessiva.classList.add('active');
+        circleAttivo.classList.remove('circle__active');
+        circleSuccessivo.classList.add('circle__active');
+    }
+    currentIndex--
 
 
 })
+
+// implementare pulsanti sotto la foto 
+const circles = document.querySelector('.circles')
+const circleArray = []
+circles.innerHTML = ' '
+
+// genera circles 
+for (let i = 0; i < slides.length; i++) {
+    // creo p
+    const p = document.createElement('p');
+
+    // do la classe circles__dot a p 
+    p.className = 'circles__dot';
+    p.classList.add('slide' + i)
+
+
+
+    // assegno alla prima p la classe circle__active 
+    if (i === currentIndex) {
+        p.classList.add('circle__active')
+    }
+
+    // aggancio il cricle
+    circles.append(p)
+
+    // push nell array di circle
+    circleArray.push(p);
+
+
+}
+
+
+const circle0 = document.querySelector('.slide0')
+circle0.addEventListener('click', function () {
+
+    let alternativeIndex=0
+    let slideAttiva = slidesCarousel[currentIndex];
+    let slideSuccessiva = slidesCarousel[alternativeIndex]
+    let circleAttivo = circleArray[currentIndex]
+    let circleSuccessivo = circleArray[alternativeIndex];
+    slideAttiva.classList.remove('active');
+    slideSuccessiva.classList.add('active');
+    circleAttivo.classList.remove('circle__active');
+    circleSuccessivo.classList.add('circle__active');
+    currentIndex = alternativeIndex;
+
+})
+
+// bottone 1 
+const circle1 = document.querySelector('.slide1')
+// circle1.addEventListener('click', function () {
+
+//     let alternativeIndex=1
+//     let slideAttiva = slidesCarousel[currentIndex];
+//     let slideSuccessiva = slidesCarousel[alternativeIndex]
+//     let circleAttivo = circleArray[currentIndex]
+//     let circleSuccessivo = circleArray[alternativeIndex];
+//     slideAttiva.classList.remove('active');
+//     slideSuccessiva.classList.add('active');
+//     circleAttivo.classList.remove('circle__active');
+//     circleSuccessivo.classList.add('circle__active');
+//     currentIndex = alternativeIndex;
+
+// })
+
+circle1.addEventListener('click', circleActive(1))
+// bottone 2 
+const circle2 = document.querySelector('.slide2')
+circle2.addEventListener('click', circleActive(2))
+
+function circleActive(altIndex){
+	let alternativeIndex=altIndex
+	console.log(altIndex)
+    let slideAttiva = slidesCarousel[currentIndex];
+    let slideSuccessiva = slidesCarousel[alternativeIndex]
+    let circleAttivo = circleArray[currentIndex]
+    let circleSuccessivo = circleArray[alternativeIndex];
+    slideAttiva.classList.remove('active');
+    slideSuccessiva.classList.add('active');
+    circleAttivo.classList.remove('circle__active');
+    circleSuccessivo.classList.add('circle__active');
+    currentIndex = alternativeIndex;
+}
+
+console.log(currentIndex)

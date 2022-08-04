@@ -40,19 +40,21 @@ console.log(ulElement, slides)
 
 
 
+let i=0;
 slides.forEach(stampaSlides)
 
 
 
-
-function stampaSlides(slides) {
+// stampa tutto slides e da classe attiva alla prima Slide 
+function stampaSlides(slides,i) {
 
 	// per mettere classe attiva solo alla prima slide 
 
 	let attiva = ''
 	
+	
 
-	if (slides.title === 'Svezia') {
+	if (i===0) {
 		attiva = 'active'
 
 	}
@@ -64,6 +66,6 @@ function stampaSlides(slides) {
   	<p class="slide__description">${slides.description}</p>
 	</div>
 	</li>`
+	i++
 }
 
-//  `<li>${ourTeam.nome} ${ourTeam.ruolo}, ${ourTeam.image} .</li>`
